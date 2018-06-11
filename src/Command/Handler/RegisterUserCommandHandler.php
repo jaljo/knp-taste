@@ -39,7 +39,7 @@ class RegisterUserCommandHandler implements ICommandHandler
     {
         $user = User::register($command->email, $command->username, $command->password);
 
-        $password = $this->encoder->encodePassword($user, "langlois");
+        $password = $this->encoder->encodePassword($user, $command->password);
         $user->setPassword($password);
         
         $this->userRepository->save($user);

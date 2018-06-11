@@ -25,6 +25,10 @@
         "symfony/yaml": "^4.1"
     },
     "require-dev": {
+        "behat/behat": "dev-master",
+        "behat/mink": "dev-master",
+        "behat/mink-extension": "dev-master",
+        "behat/mink-goutte-driver": "^1.2",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "^4.1",
         "symfony/maker-bundle": "^1.0",
