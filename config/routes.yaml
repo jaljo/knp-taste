@@ -10,7 +10,8 @@ logout:
 user_register:
     path: /user/register
     controller: App\Controller\SecurityController::registerUser
-    
-test:
-    path: /test
-    controller: App\Controller\TestController::test    
+
+# course routes    
+course_index:
+    path: /course/
+    controller: App\Controller\CourseController::index    

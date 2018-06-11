@@ -53,6 +53,6 @@ class LoginContext implements Context
      */
     public function iShouldBeRedirectedToTheCookingCoursesIndexPage()
     {
-        $this->minkContext->assertPageAddress("/courses/");
+        $this->minkContext->assertPageAddress("/course/");
     }     
 }

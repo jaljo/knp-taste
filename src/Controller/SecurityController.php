@@ -33,8 +33,6 @@ class SecurityController extends Controller
     }
     
     /**
-     * @todo redirect to course index instead of test page
-     * 
      * @param Request $request
      * @return Response
      */
@@ -61,8 +59,8 @@ class SecurityController extends Controller
                 $request->getSession()->getFlashBag() ->add("message", $exception->getMessage());
             }
             
-            // redirect to cooking courses index
-            return $this->redirect($this->generateUrl("test"));
+            // redirect to login page
+            return $this->redirect($this->generateUrl("login"));
         }
         
         // redirect to registration form and display errors with flashbag messages
