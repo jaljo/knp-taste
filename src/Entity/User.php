@@ -117,7 +117,7 @@ class User implements UserInterface
      * @param string $encodedPassword
      * @return \App\Entity\User
      */
-    public function encodPassword(string $encodedPassword): User
+    public function setPassword(string $encodedPassword): User
     {
         $this->password = $encodedPassword;
         return $this;

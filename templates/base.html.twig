@@ -6,7 +6,16 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <header>
+            {% for flashMessage in app.session.flashbag.get("message")  %}
+            <div class="message">
+                {{ flashMessage }}
+            </div>
+            {% endfor %}
+        </header>
+        
         {% block body %}{% endblock %}
+        
         {% block javascripts %}{% endblock %}
     </body>
 </html>

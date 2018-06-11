@@ -6,15 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\User;
+use App\Form\UserType;
+use App\Command\RegisterUserCommand;
+use App\Command\Handler\RegisterUserCommandHandler;
+use Exception;
 
 class SecurityController extends Controller
 {
     /**
      * @param Request $request
      * @param AuthenticationUtils $authenticationUtils
-     * @return type
+     * @return Response
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
@@ -31,20 +33,35 @@ class SecurityController extends Controller
     }
     
     /**
-     * @param UserPasswordEncoderInterface $encoder
-     * @todo provide parameters from request instead of hardcoding them.
+     * @todo redirect to course index instead of test page
+     * 
+     * @param Request $request
+     * @return Response
      */
-    public function registerUser(UserPasswordEncoderInterface $encoder): void
+    public function registerUser(Request $request): Response
     {
-        $user = User::register("joris.langlois@knplabs.com", "joris", "langlois");
-
-        $password = $encoder->encodePassword($user, "langlois");
-        $user->encodPassword($password);
+        $userForm = $this->createForm(UserType::class);        
+        $userForm->handleRequest($request);
         
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
+        if($userForm->isSubmitted() && $userForm->isValid()) {
+            try{
+                $userData = $userForm->getData();                
+                
+                $registerUser = new RegisterUserCommand(
+                    $userData["email"], $userData["username"], $userData["password"]
+                );
+                
+                $this->get(RegisterUserCommandHandler::class)->handle($registerUser);   
+                
+                $request->getSession()->getFlashBag() ->add("message", "Enregistrement réussi !");
+            }
+            catch(Exception $exception) {
+                $request->getSession()->getFlashBag() ->add("message", $exception->getMessage());
+            }
+            
+            return $this->redirect($this->generateUrl("test"));
+        }
         
-        exit;
+        return $this->render("security/register.html.twig", ["userform" => $userForm->createView()]);
     }
 }
