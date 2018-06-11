@@ -25,14 +25,18 @@ class FixtureLoader extends Command
         $this->entityManager = $entityManager;
     }
     
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('fixtures:load')
             ->setDescription('Load fixtures in database.')
             ->setHelp('This command loads course fixtures in database');
     }    
     
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $loader = new NativeLoader();
         $courseSet = $loader->loadFile(__DIR__.'/fixtures.yml');        
