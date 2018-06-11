@@ -1,3 +1,4 @@
+# security routes
 login:
     path: /login
     controller: App\Controller\SecurityController::login
@@ -5,6 +6,7 @@ login:
 logout:
     path: /logout
 
+# user routes
 user_register:
     path: /user/register
     controller: App\Controller\SecurityController::registerUser

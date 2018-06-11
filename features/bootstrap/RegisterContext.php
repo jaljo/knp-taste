@@ -55,9 +55,9 @@ class RegisterContext implements Context
     }
 
     /**
-     * @When I submit it
+     * @When I submit the registration form
      */
-    public function iSubmitIt()
+    public function iSubmitTheResgistrationForm()
     {
         $this->minkContext->pressButton("user[submit]");
     }
