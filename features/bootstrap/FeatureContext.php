@@ -1,25 +1,24 @@
 <?php
 
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Behat\Hook\Scope\AfterScenarioScope;
+use App\Kernel;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends MinkContext implements Context
-{
+{    
     /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
+     * @var Kernel
      */
+    private $kernel;
+    
     public function __construct()
     {
+        $this->kernel = new Kernel("dev", true);
+        $this->kernel->boot();
     }
     
     /**
@@ -35,7 +34,9 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iFillTheRegisrationForm()
     {
-        throw new PendingException();
+        $this->fillField("user[username]", "foo");
+        $this->fillField("user[password]", "bar");
+        $this->fillField("user[email]", "foo.bar@knplabs.com");
     }
 
     /**
@@ -43,7 +44,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iSubmitIt()
     {
-        throw new PendingException();
+        $this->pressButton("user[submit]");
     }
 
     /**
@@ -51,7 +52,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iShouldBeRedirectedToTheLoginPage()
     {
-        throw new PendingException();
+        $this->assertPageAddress("/login");
     }
 
     /**
@@ -59,6 +60,19 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iShouldSeeMyAccountCreationConfirmationMessage()
     {
-        throw new PendingException();
+        $this->assertElementContainsText(".flashbag-message", "Successful registration !");
     }
+    
+     /**
+      * @AfterScenario
+      * @todo fix doctrine connection to use .env parameters
+      */
+     public function cleanDB(AfterScenarioScope $scope)
+     {
+         $container = $this->kernel->getContainer();
+         $connection = $container->get("doctrine")->getManager()->getConnection();
+         
+         $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
+         $deleteStatement->execute();
+     }    
 }

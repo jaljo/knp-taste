@@ -53,7 +53,7 @@ class SecurityController extends Controller
                 
                 $this->get(RegisterUserCommandHandler::class)->handle($registerUser);   
                 
-                $request->getSession()->getFlashBag() ->add("message", "Enregistrement réussi !");
+                $request->getSession()->getFlashBag() ->add("message", "Successful registration !");
             }
             catch(Exception $exception) {
                 $request->getSession()->getFlashBag() ->add("message", $exception->getMessage());
