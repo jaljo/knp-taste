@@ -1,0 +1,5 @@
+App\Entity\Course:
+    course{1..10}:
+        __construct: 
+            - '<catchPhrase()>'
+            - '<url()>'

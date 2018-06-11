@@ -28,3 +28,8 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Command\Handler\RegisterUserCommandHandler:
         public: true
+        
+    # fixtures        
+    App\DataFixtures\ORM\:
+        resource: '../src/DataFixtures/ORM'
+        tags: ['console.command']
