@@ -19,13 +19,13 @@ class User implements UserInterface
 
     /**
      * @var string 
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length=100)
      */
     private $username;
     
     /**
      * @var string 
-     * @ORM\Column(type="string", length="100")
+     * @ORM\Column(type="string", length=100)
      */    
     private $password;
 
@@ -45,7 +45,7 @@ class User implements UserInterface
      */    
     public static function register(string $username, string $password)
     {
-        self($username, $password);
+        return new self($username, $password);
     }
     
     /**
@@ -77,14 +77,14 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return array("USER_ADMIN");
+        return array("ROLE_ADMIN");
     }
 
     /**
      * This returns null as we use the bcrypt encoder.
      * @return null
      */
-    public function getSalt(): null
+    public function getSalt()
     {
         return null;
     }
@@ -92,4 +92,10 @@ class User implements UserInterface
     public function eraseCredentials(): void 
     {
     }    
+    
+    public function encodPassword(string $encodedPassword): User
+    {
+        $this->password = $encodedPassword;
+        return $this;
+    }
 }
