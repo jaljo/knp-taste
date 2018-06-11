@@ -1,24 +1,39 @@
 <?php
 
-use Behat\Behat\Context\Context;
-use Behat\MinkExtension\Context\MinkContext;
-use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use App\Kernel;
+use Behat\Behat\Context\Context;
+use Behat\Behat\Hook\Scope\AfterScenarioScope;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends MinkContext implements Context
+class RegisterContext implements Context
 {    
     /**
-     * @var Kernel
+     * @var App\Kernel
      */
     private $kernel;
     
+    /**
+     * @var Behat\MinkExtension\Context\MinkContext
+     */    
+    private $minkContext;
+    
     public function __construct()
-    {
+    {        
         $this->kernel = new Kernel("dev", true);
         $this->kernel->boot();
+    }
+    
+    /** 
+     * @BeforeScenario
+     */
+    public function gatherContexts(BeforeScenarioScope $scope)
+    {
+        $environment = $scope->getEnvironment();
+
+        $this->minkContext = $environment->getContext('Behat\MinkExtension\Context\MinkContext');
     }
     
     /**
@@ -26,7 +41,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iAmOnTheRegisterationPage()
     {
-        $this->visit("/user/register");
+        $this->minkContext->visit("/user/register");
     }
 
     /**
@@ -34,9 +49,9 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iFillTheRegisrationForm()
     {
-        $this->fillField("user[username]", "foo");
-        $this->fillField("user[password]", "bar");
-        $this->fillField("user[email]", "foo.bar@knplabs.com");
+        $this->minkContext->fillField("user[username]", "foo");
+        $this->minkContext->fillField("user[password]", "bar");
+        $this->minkContext->fillField("user[email]", "foo.bar@knplabs.com");
     }
 
     /**
@@ -44,7 +59,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iSubmitIt()
     {
-        $this->pressButton("user[submit]");
+        $this->minkContext->pressButton("user[submit]");
     }
 
     /**
@@ -52,7 +67,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iShouldBeRedirectedToTheLoginPage()
     {
-        $this->assertPageAddress("/login");
+        $this->minkContext->assertPageAddress("/login");
     }
 
     /**
@@ -60,7 +75,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function iShouldSeeMyAccountCreationConfirmationMessage()
     {
-        $this->assertElementContainsText(".flashbag-message", "Successful registration !");
+        $this->minkContext->assertElementContainsText(".flashbag-message", "Successful registration !");
     }
     
      /**
@@ -72,7 +87,7 @@ class FeatureContext extends MinkContext implements Context
          $container = $this->kernel->getContainer();
          $connection = $container->get("doctrine")->getManager()->getConnection();
          
-         $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
-         $deleteStatement->execute();
+         // $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
+         // $deleteStatement->execute();
      }    
-}
+    }

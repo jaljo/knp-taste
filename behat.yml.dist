@@ -1,8 +1,10 @@
 default:  
     suites:
-        app:
-            context:
-                - Context\FeatureContext
+        user:
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - RegisterContext
+                - LoginContext
     extensions:
       Behat\MinkExtension:
         base_url:  'http://localhost:8000'
