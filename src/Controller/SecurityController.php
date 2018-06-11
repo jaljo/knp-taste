@@ -22,10 +22,10 @@ class SecurityController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+        $lastEmail = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', array(
-            'last_username' => $lastUsername,
+            'last_email' => $lastEmail,
             'error' => $error,
         ));        
     }
@@ -36,7 +36,7 @@ class SecurityController extends Controller
      */
     public function registerUser(UserPasswordEncoderInterface $encoder): void
     {
-        $user = User::register("joris", "langlois");
+        $user = User::register("joris.langlois@knplabs.com", "joris", "langlois");
 
         $password = $encoder->encodePassword($user, "langlois");
         $user->encodPassword($password);

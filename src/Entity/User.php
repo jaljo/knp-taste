@@ -19,6 +19,12 @@ class User implements UserInterface
 
     /**
      * @var string 
+     * @ORM\Column(type="string", length=100, unique=true)
+     */
+    private $email;
+    
+    /**
+     * @var string 
      * @ORM\Column(type="string", length=100)
      */
     private $username;
@@ -30,22 +36,25 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @param string $email
      * @param string $username
      * @param string $password
      */
-    private function __construct(string $username, string $password)
+    private function __construct(string $email, string $username, string $password)
     {
+        $this->email = $email;
         $this->username = $username;
         $this->password = $password;
     }
     
     /**
+     * @param string $email
      * @param string $username
      * @param string $password
      */    
-    public static function register(string $username, string $password)
+    public static function register(string $email, string $username, string $password)
     {
-        return new self($username, $password);
+        return new self($email, $username, $password);
     }
     
     /**
@@ -56,6 +65,14 @@ class User implements UserInterface
         return $this->id;
     }
 
+    /**
+     * @return string
+     */    
+    public function getEmail(): string 
+    {
+        return $this->email;
+    }
+    
     /**
      * @return string
      */    
@@ -81,7 +98,8 @@ class User implements UserInterface
     }
 
     /**
-     * This returns null as we use the bcrypt encoder.
+     * This mthods returns null as we use the bcrypt encoder, we don't need salt.
+     * 
      * @return null
      */
     public function getSalt()
@@ -93,6 +111,12 @@ class User implements UserInterface
     {
     }    
     
+    /**
+     * This method overrides plaintext password with encoded one.
+     * 
+     * @param string $encodedPassword
+     * @return \App\Entity\User
+     */
     public function encodPassword(string $encodedPassword): User
     {
         $this->password = $encodedPassword;
