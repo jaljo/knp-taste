@@ -4,11 +4,9 @@
 This little application allows logged-in users to browse for cooking courses, so they can improve their cooking skills.
 Not to say that developpers are bad at cooking, but you know...
 
-
 ### Prerequisites
 
 This application assumes that you have a runing LAMP environnment with composer installed as a running executable.
-
 
 ### Installation
 
@@ -41,7 +39,6 @@ Populate course table with fixtures :
 ```
 php bin/console fixtures:load
 ```
-
 
 ### Testing
 
