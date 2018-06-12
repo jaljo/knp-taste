@@ -2,12 +2,13 @@
 ## A cooking training for clumsy developpers !
 
 This little application allows logged-in users to browse for cooking courses, so they can improve their cooking skills.
-No to say that developpers are bad at cooking, but you know...
+Not to say that developpers are bad at cooking, but you know...
+\s\s
 
 ### Prerequisites
 
 This application assumes that you have a runing LAMP environnment.
-
+\s\s
 
 ### Installation
 
@@ -35,12 +36,12 @@ Create database schema:
 php bin/console doctrine:migrations:migrate
 ```
 
-Populate course database with fixtures :
+Populate course table with fixtures :
 
 ```
 php bin/console fixtures:load
 ```
-
+\s\s
 
 ### Testing
 
