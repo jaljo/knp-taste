@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use DateTimeInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -39,12 +40,36 @@ class UserRepository extends ServiceEntityRepository
     public function countUserViewedCourses(int $userId): int
     {
         $nUserCourses = $this->createQueryBuilder("COUNT(u)")
-                ->join("u.viewedCourses")
+                ->join("u.viewedCourses", "vc")
                 ->where("u.id = :user_id")
                 ->setParameter("user_id", $userId)
                 ->getQuery()
                 ->getSingleScalarResult();
         
         return $nUserCourses;
+    }
+    
+    /**
+     * @param int $userId
+     * @return DateTimeInterface
+     */
+    public function getUserLastCourseVisualizationDate(int $userId): DateTimeInterface
+    {
+        $query = "SELECT uc.viewDate "
+                . "FROM user_course uc "
+                . "INNER JOIN user u "
+                . "ON uc.user_id = u.id "
+                . "WHERE u.id = :user_id "
+                . "ORDER BY uc.view_date DESC "
+                . "LIMIT 1;";
+                
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($query);
+        $stmt->bindValue("user_id", $userId);
+        
+        $lastViewDate = $stmt->execute();
+        
+        var_dump($lastViewDate);
+        exit;
     }
 }
