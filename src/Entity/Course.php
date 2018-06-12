@@ -2,34 +2,27 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\CourseRepository")
- */
 class Course
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=125)
+     * @var string
      */
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @var string
      */
     private $videoSrc;
 
     /**
      * @var UserCourse 
-     * @ORM\OneToMany(targetEntity="App\Entity\UserCourse", mappedBy="course")
      */   
     private $usersVisualizations;
     

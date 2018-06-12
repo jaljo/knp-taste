@@ -1,0 +1,23 @@
+App\Entity\User:
+    type: entity
+    repositoryClass: App\Repository\UserRepository
+    id:
+      id:
+        type: integer
+        generator:
+          strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 100
+            unique: true
+        username:
+            type: string
+            length: 100
+        password:
+            type: string
+            length: 100            
+    oneToMany:
+      viewedCourses:
+        targetEntity: App\Entity\UserCourse
+        mappedBy: user

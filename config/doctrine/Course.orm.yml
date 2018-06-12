@@ -1,0 +1,18 @@
+App\Entity\Course:
+    type: entity
+    repositoryClass: App\Repository\CourseRepository
+    id:
+      id:
+        type: integer
+        generator:
+          strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 125
+        videoSrc:
+            type: text   
+    oneToMany:
+      usersVisualizations:
+        targetEntity: App\Entity\UserCourse
+        mappedBy: course

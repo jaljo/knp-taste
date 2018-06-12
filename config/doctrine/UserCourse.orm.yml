@@ -1,0 +1,23 @@
+App\Entity\UserCourse:
+    type: entity
+    id:
+      id:
+        type: integer
+        generator:
+          strategy: AUTO
+    fields:
+        viewDate:
+            type: datetime
+    manyToOne:
+      course:
+        targetEntity: App\Entity\Course
+        inversedBy: usersVisualizations
+        joinColumn:
+          name: course_id
+          referencedColumnName: id
+      user:
+        targetEntity: App\Entity\User
+        inversedBy: viewedCourses
+        joinColumn:
+          name: user_id
+          referencedColumnName: id

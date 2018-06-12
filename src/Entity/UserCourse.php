@@ -2,39 +2,32 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
 use App\Entity\Course;
 use App\Entity\User;
 
 /**
  * This entity has no repository because it should never be accessed directly. Use user or course repository instead.
- * 
- * @ORM\Entity()
  */
 class UserCourse
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var DateTimeInterface
      */
     private $viewDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="usersVisualizations")
-     * @ORM\JoinColumn(name="course_id", referencedColumnName="id")
+     * @var Course
      */    
     private $course;
     
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="viewedCourses")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var User
      */    
     private $user;
     
