@@ -55,7 +55,7 @@ class Course
     /**
      * @return string
      */
-    public function getVideo(): string
+    public function getVideoSrc(): string
     {
         return $this->videoSrc;
     }
