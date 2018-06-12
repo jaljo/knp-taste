@@ -21,3 +21,4 @@ App\Entity\User:
       viewedCourses:
         targetEntity: App\Entity\UserCourse
         mappedBy: user
+        cascade: ["persist", "remove"]

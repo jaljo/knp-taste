@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\PersistentCollection;
+use App\Entity\Course;
+use App\Entity\UserCourse;
 
 class User implements UserInterface
 {
@@ -127,4 +129,18 @@ class User implements UserInterface
     {
         return $this->viewedCourses;
     }    
+    
+    /**
+     * @todo to tight coupled to UserCourse ?
+     * 
+     * @param Course $course
+     * @return \App\Entity\User
+     */
+    public function takeCourse(Course $course): self
+    {
+        $userCourse = UserCourse::take($course, $this);
+        $this->viewedCourses->add($userCourse);
+        
+        return $this;
+    }
 }

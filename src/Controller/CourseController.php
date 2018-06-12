@@ -18,9 +18,7 @@ class CourseController extends Controller
     public function index(Request $request): Response
     {        
         try{
-            $courses = $this->getDoctrine()
-                ->getManager()
-                ->getRepository(Course::class)
+            $courses = $this->getDoctrine()->getManager()->getRepository(Course::class)
                 ->findAll();            
         }
         catch(Exception $exception) {
@@ -37,17 +35,18 @@ class CourseController extends Controller
     public function view(Request $request): Response
     {
         try{
-            $course = $this->getDoctrine()
-                ->getManager()
-                ->getRepository(Course::class)
+            // in all case, we have to get the course details
+            $course = $this->getDoctrine()->getManager()->getRepository(Course::class)
                 ->find($request->get("course_id"));      
             
-            $viewCourse = new ViewCourseCommand($this->getUser()->getId());
-            
             // ensure business rules for video visualization are respected
+            $viewCourse = new ViewCourseCommand(
+                $this->getUser()->getId(),
+                $request->get("course_id")
+            );                        
             $this->get(ViewCourseCommandHandler::class)->handle($viewCourse);
             
-            return $this->render("course/index.html.twig", [
+            return $this->render("course/view.html.twig", [
                 "course" => $course,
                 "displayVideo" => true
             ]);    
@@ -56,7 +55,7 @@ class CourseController extends Controller
             $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
         }
         
-        return $this->render("course/index.html.twig", [
+        return $this->render("course/view.html.twig", [
             "course" => $course,
             "displayVideo" => false
         ]);

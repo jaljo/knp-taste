@@ -46,6 +46,8 @@ services:
             - '@App\Check\UserIsAdminCheck'
             - '@App\Check\UserExeededCoursesViewCheck'
             - '@App\Check\UserWaitedEnoughCheck'
+            - '@App\Repository\UserRepository'
+            - '@App\Repository\CourseRepository'
         
     # fixtures        
     App\DataFixtures\ORM\:
