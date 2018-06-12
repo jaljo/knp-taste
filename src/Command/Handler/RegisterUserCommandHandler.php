@@ -2,13 +2,13 @@
 
 namespace App\Command\Handler;
 
-use App\Command\Handler\ICommandHandler;
-use App\Command\ICommand;
+use App\Command\Handler\CommandHandler;
+use App\Command\Command;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Repository\IUserRepository;
 
-class RegisterUserCommandHandler implements ICommandHandler
+class RegisterUserCommandHandler implements CommandHandler
 {
     /***
      * @var UserPasswordEncoderInterface
@@ -33,9 +33,9 @@ class RegisterUserCommandHandler implements ICommandHandler
     /**
      * Encode password then persist user to database.
      * 
-     * @param ICommand $command
+     * @param Command $command
      */
-    public function handle(ICommand $command)
+    public function handle(Command $command)
     {
         $user = User::register($command->email, $command->username, $command->password);
 

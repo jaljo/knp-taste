@@ -2,12 +2,12 @@
 
 namespace App\Command\Handler;
 
-use App\Command\Handler\ICommandHandler;
-use App\Command\ICommand;
+use App\Command\Handler\CommandHandler;
+use App\Command\Command;
 
-class ViewCourseHandler implements ICommandHandler
+class ViewCourseHandler implements CommandHandler
 {
-    public function handle(ICommand $command)
+    public function handle(Command $command)
     {        
     }
 }

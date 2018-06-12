@@ -2,9 +2,9 @@
 
 namespace App\Command;
 
-use App\Command\ICommand;
+use App\Command\Command;
 
-class ViewCourseCommand implements ICommand
+class ViewCourseCommand implements Command
 {
     /**
      * @var int 

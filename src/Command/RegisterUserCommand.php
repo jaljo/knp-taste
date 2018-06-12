@@ -2,9 +2,9 @@
 
 namespace App\Command;
 
-use App\Command\ICommand;
+use App\Command\Command;
 
-class RegisterUserCommand implements ICommand
+class RegisterUserCommand implements Command
 {
     /**
      * @var string 
