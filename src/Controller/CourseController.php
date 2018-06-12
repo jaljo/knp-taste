@@ -4,14 +4,27 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Course;
 
 class CourseController extends Controller
 {
     /**
+     * @param Request $request
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {        
-        return $this->render("course/index.html.twig");
+        try{
+            $courses = $this->getDoctrine()
+                ->getManager()
+                ->getRepository(Course::class)
+                ->findAll();            
+        }
+        catch(Exception $exception) {
+            $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
+        }
+        
+        return $this->render("course/index.html.twig", ["courses" => $courses]);
     }
 }

@@ -15,3 +15,9 @@ user_register:
 course_index:
     path: /course/
     controller: App\Controller\CourseController::index    
+    
+course_view:
+    path: /course/{course_id}
+    controller: App\Controller\CourseController::view
+    requirements:
+        course_id: \d+

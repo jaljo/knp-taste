@@ -1,5 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ dump(dump) }}
+    <h1>Available courses</h1>
+    <ul>
+    {% for course in courses %}
+        <li>
+            <a href="{{ path("course_view", {course_id: course.id}) }}">{{ course.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock body %}

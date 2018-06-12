@@ -8,10 +8,15 @@
     <body>
         <header>
             {% for flashMessage in app.session.flashbag.get("message")  %}
-            <div class="flashbag-message">
-                {{ flashMessage }}
-            </div>
+                <div class="flashbag-message">
+                    {{ flashMessage }}
+                </div>
             {% endfor %}
+            {% for flashError in app.session.flashbag.get("error")  %}
+                <div class="flashbag-error">
+                    {{ flashError }}
+                </div>
+            {% endfor %}            
         </header>
         
         {% block body %}{% endblock %}

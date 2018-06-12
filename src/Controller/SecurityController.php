@@ -56,7 +56,7 @@ class SecurityController extends Controller
                     $request->getSession()->getFlashBag() ->add("message", "Successful registration !");
             }
             catch(Exception $exception) {
-                $request->getSession()->getFlashBag() ->add("message", $exception->getMessage());
+                $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
             }
             
             // redirect to login page
