@@ -23,7 +23,7 @@ class UserExeededCoursesViewCheck implements UserCheck
     public function __construct(UserRepository $userRepository, int $coursesViewLimit)
     {
         $this->userRepository = $userRepository;
-        $this->courseLimit = $coursesViewLimit;
+        $this->coursesViewLimit = $coursesViewLimit;
     }
     
     /**
@@ -35,12 +35,12 @@ class UserExeededCoursesViewCheck implements UserCheck
     public function check(int $userId): bool
     {
         $viewedCourses = $this->userRepository->countUserViewedCourses($userId);
-        
+
         if($viewedCourses < $this->coursesViewLimit) {
-            return true;
+            return false;
         }
         else {
-            return false;
+            return true;
         }
     }
 }

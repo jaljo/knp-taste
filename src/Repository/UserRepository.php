@@ -39,14 +39,14 @@ class UserRepository extends ServiceEntityRepository
      */
     public function countUserViewedCourses(int $userId): int
     {
-        $nUserCourses = $this->createQueryBuilder("COUNT(u)")
+        $userWithCourses = $this->createQueryBuilder("u")
                 ->join("u.viewedCourses", "vc")
                 ->where("u.id = :user_id")
                 ->setParameter("user_id", $userId)
                 ->getQuery()
-                ->getSingleScalarResult();
+                ->getSingleResult();
         
-        return $nUserCourses;
+        return count($userWithCourses->getViewedCourses());
     }
     
     /**

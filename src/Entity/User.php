@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\PersistentCollection;
 
 class User implements UserInterface
 {
