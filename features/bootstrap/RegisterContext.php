@@ -1,9 +1,10 @@
 <?php
 
-use App\Kernel;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Symfony\Component\Dotenv\Dotenv;
+use App\Kernel;
 
 /**
  * Defines application features from the specific context.
@@ -22,6 +23,9 @@ class RegisterContext implements Context
     
     public function __construct()
     {        
+        $env = new Dotenv();
+        $env->load(__DIR__.'/../../.env');
+        
         $this->kernel = new Kernel("dev", true);
         $this->kernel->boot();
     }
@@ -80,12 +84,11 @@ class RegisterContext implements Context
     
      /**
       * @AfterScenario
-      * @todo fix doctrine connection to use .env parameters
       */
      public function cleanDB(AfterScenarioScope $scope)
      {
          $container = $this->kernel->getContainer();
-         $connection = $container->getDoctrine()->getManager()->getConnection();
+         $connection = $container->get("doctrine")->getManager()->getConnection();
          
           $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
           $deleteStatement->execute();
