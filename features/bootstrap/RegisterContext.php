@@ -85,9 +85,9 @@ class RegisterContext implements Context
      public function cleanDB(AfterScenarioScope $scope)
      {
          $container = $this->kernel->getContainer();
-         $connection = $container->get("doctrine")->getManager()->getConnection();
+         $connection = $container->getDoctrine()->getManager()->getConnection();
          
-         // $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
-         // $deleteStatement->execute();
+          $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
+          $deleteStatement->execute();
      }    
-    }
+}
