@@ -41,7 +41,7 @@ class ViewCourseCommandHandler implements CommandHandler
     
     public function handle(Command $command)
     {        
-        var_dump($this->userExeededCoursesViewCheck->check($command->userId));
+        var_dump($this->userWaitedEnough->check($command->userId));
         exit;
         
         if(true === $this->userIsAdminCheck->check($command->userId)) {

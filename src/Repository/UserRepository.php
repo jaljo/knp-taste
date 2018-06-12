@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use DateTimeInterface;
+use DateTime;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -50,12 +51,14 @@ class UserRepository extends ServiceEntityRepository
     }
     
     /**
+     * @todo I used DBAL for convenience, but there should be a way to do this using DQL.
+     * 
      * @param int $userId
      * @return DateTimeInterface
      */
     public function getUserLastCourseVisualizationDate(int $userId): DateTimeInterface
     {
-        $query = "SELECT uc.viewDate "
+        $query = "SELECT uc.view_date "
                 . "FROM user_course uc "
                 . "INNER JOIN user u "
                 . "ON uc.user_id = u.id "
@@ -66,10 +69,12 @@ class UserRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($query);
         $stmt->bindValue("user_id", $userId);
+        $stmt->execute();
         
-        $lastViewDate = $stmt->execute();
+        // convert string to datetime
+        $lastViewDateString = $stmt->fetch();
+        $lastViewDate = new DateTime($lastViewDateString["view_date"]);
         
-        var_dump($lastViewDate);
-        exit;
+        return $lastViewDate;
     }
 }
