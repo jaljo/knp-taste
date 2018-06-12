@@ -12,17 +12,10 @@ class ViewCourseCommand implements Command
     public $userId;
     
     /**
-     * @var int 
-     */    
-    public $courseId;
-    
-    /**
      * @param $userId int
-     * @param $courseId int
      */    
-    public function __construct(int $userId, int $courseId)
+    public function __construct(int $userId)
     {
         $this->userId = $userId;
-        $this->courseId = $courseId;
     }
 }

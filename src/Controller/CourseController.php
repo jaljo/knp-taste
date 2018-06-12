@@ -37,17 +37,28 @@ class CourseController extends Controller
     public function view(Request $request): Response
     {
         try{
-            $viewCourse = new ViewCourseCommand(
-                $this->getUser()->getId(),
-                $request->get("course_id")
-            );
+            $course = $this->getDoctrine()
+                ->getManager()
+                ->getRepository(Course::class)
+                ->find($request->get("course_id"));      
             
-            $course = $this->get(ViewCourseCommandHandler::class)->handle($viewCourse);
+            $viewCourse = new ViewCourseCommand($this->getUser()->getId());
+            
+            // ensure business rules for video visualization are respected
+            $this->get(ViewCourseCommandHandler::class)->handle($viewCourse);
+            
+            return $this->render("course/index.html.twig", [
+                "course" => $course,
+                "displayVideo" => true
+            ]);    
         }
         catch(Exception $exception) {
             $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
         }
         
-        return $this->render("course/index.html.twig", ["course" => $course]);        
+        return $this->render("course/index.html.twig", [
+            "course" => $course,
+            "displayVideo" => false
+        ]);
     }
 }

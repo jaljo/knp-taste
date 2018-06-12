@@ -39,21 +39,27 @@ class ViewCourseCommandHandler implements CommandHandler
         $this->userWaitedEnough = $userWaitedEnough;
     }
     
+    /**
+     * Check against multiple conditions to determine 
+     * if the user is authorized to access course video.
+     * 
+     * @param Command $command
+     * @throws Exception
+     */
     public function handle(Command $command)
     {        
-        var_dump($this->userWaitedEnough->check($command->userId));
-        exit;
-        
+        // we don't throw role exception here because the symfony security layer will handle them
         if(true === $this->userIsAdminCheck->check($command->userId)) {
-            echo 'isAdmin !';
+            return;
         }
         
-        if(false === $this->userExeededCoursesViewCheck->check($command->userId)) {
-            echo 'limit not exeeded !';
+        // for non admin user, we ensure business rules are respected
+        if(true === $this->userExeededCoursesViewCheck->check($command->userId)) {
+            if(false === $this->userWaitedEnough->check($command->userId)) {
+                throw new Exception("You've exeeded the amount of courses you can take. Wait a little bit !");
+            }
         }
-        
-        if(true === $this->userWaitedEnough->check($command->userId)) {
-            echo 'has waited enough !';
-        }
+
+        return;
     }
 }
