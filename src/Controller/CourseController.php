@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Course;
 use App\Command\ViewCourseCommand;
 use App\Command\Handler\ViewCourseCommandHandler;
+use Exception;
 
 class CourseController extends Controller
 {

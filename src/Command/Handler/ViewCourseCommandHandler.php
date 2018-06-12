@@ -7,6 +7,7 @@ use App\Command\Command;
 use App\Check\UserCheck;
 use App\Repository\UserRepository;
 use App\Repository\CourseRepository;
+use Exception;
 
 class ViewCourseCommandHandler implements CommandHandler
 {
@@ -73,17 +74,16 @@ class ViewCourseCommandHandler implements CommandHandler
         if(true === $this->userExeededCoursesViewCheck->check($command->userId)) {
             if(false === $this->userWaitedEnough->check($command->userId)) {
                 throw new Exception("You've exeeded the amount of courses you can take. Wait a little bit !");
-            }
+            }      
         }
-        else {
-            $course = $this->courseRepository->find($command->courseId);
-            $user = $this->userRepository->find($command->userId);
-            
-            // user successfully accessed to course : log it
-            $user->takeCourse($course);
-            
-            $this->userRepository->save($user);
-        }
+        
+        // user successfully accessed to course : log it
+        $course = $this->courseRepository->find($command->courseId);
+        $user = $this->userRepository->find($command->userId);
+        
+        $user->takeCourse($course);
+
+        $this->userRepository->save($user);
 
         return;
     }
