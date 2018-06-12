@@ -6,7 +6,7 @@ use App\Command\Handler\CommandHandler;
 use App\Command\Command;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Repository\IUserRepository;
+use App\Repository\UserRepository;
 
 class RegisterUserCommandHandler implements CommandHandler
 {
@@ -22,9 +22,9 @@ class RegisterUserCommandHandler implements CommandHandler
     
     /**
      * @param UserPasswordEncoderInterface $encoder
-     * @param IUserRepository $userRepository
+     * @param UserRepository $userRepository
      */
-    public function __construct(UserPasswordEncoderInterface $encoder, IUserRepository $userRepository)
+    public function __construct(UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
     {
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
