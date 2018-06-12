@@ -6,7 +6,7 @@ use App\Command\Handler\CommandHandler;
 use App\Command\Command;
 use App\Check\UserCheck;
 
-class ViewCourseHandler implements CommandHandler
+class ViewCourseCommandHandler implements CommandHandler
 {
     /**
      * @var UserCheck 
@@ -41,16 +41,19 @@ class ViewCourseHandler implements CommandHandler
     
     public function handle(Command $command)
     {        
-        if(true === $this->userIsAdminCheck($command->userId)) {
-            
+        var_dump($this->userExeededCoursesViewCheck->check($command->userId));
+        exit;
+        
+        if(true === $this->userIsAdminCheck->check($command->userId)) {
+            echo 'isAdmin !';
         }
         
-        if(false === $this->userExeededCoursesViewCheck($command->userId)) {
-            
+        if(false === $this->userExeededCoursesViewCheck->check($command->userId)) {
+            echo 'limit not exeeded !';
         }
         
-        if(true === $this->userWaitedEnough($command->userId)) {
-            
+        if(true === $this->userWaitedEnough->check($command->userId)) {
+            echo 'has waited enough !';
         }
     }
 }

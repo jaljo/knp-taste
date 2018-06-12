@@ -9,12 +9,12 @@ class ViewCourseCommand implements Command
     /**
      * @var int 
      */
-    private $userId;
+    public $userId;
     
     /**
      * @var int 
      */    
-    private $courseId;
+    public $courseId;
     
     /**
      * @param $userId int

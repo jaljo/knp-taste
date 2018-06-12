@@ -15,15 +15,15 @@ class UserExeededCoursesViewCheck implements UserCheck
     /**
      * @var int 
      */    
-    private $courseLimit;
+    private $coursesViewLimit;
     
     /**
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository, int $courseLimit)
+    public function __construct(UserRepository $userRepository, int $coursesViewLimit)
     {
         $this->userRepository = $userRepository;
-        $this->courseLimit = $courseLimit;
+        $this->courseLimit = $coursesViewLimit;
     }
     
     /**
@@ -36,7 +36,7 @@ class UserExeededCoursesViewCheck implements UserCheck
     {
         $viewedCourses = $this->userRepository->countUserViewedCourses($userId);
         
-        if($viewedCourses < $this->courseLimit) {
+        if($viewedCourses < $this->coursesViewLimit) {
             return true;
         }
         else {

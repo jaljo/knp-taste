@@ -24,7 +24,7 @@ class UserWaitedEnoughCheck implements UserCheck
     public function __construct(UserRepository $userRepository, int $daysBeforeLimitDrops)
     {
         $this->userRepository = $userRepository;
-        $this->timeBeforeLimitDrops = $daysBeforeLimitDrops;
+        $this->daysBeforeLimitDrops = $daysBeforeLimitDrops;
     }
     
     /**

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Course;
 use App\Command\ViewCourseCommand;
+use App\Command\Handler\ViewCourseCommandHandler;
 
 class CourseController extends Controller
 {
@@ -40,6 +41,8 @@ class CourseController extends Controller
                 $this->getUser()->getId(),
                 $request->get("course_id")
             );
+            
+            $course = $this->get(ViewCourseCommandHandler::class)->handle($viewCourse);
         }
         catch(Exception $exception) {
             $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());

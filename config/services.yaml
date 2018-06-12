@@ -2,7 +2,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-
+    coursesViewLimit: 10
+    daysBeforeLimitDrops: 1
+    
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -24,9 +26,26 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    # checks
+    App\Check\UserExeededCoursesViewCheck:
+        arguments:
+            - '@App\Repository\UserRepository'
+            - '%coursesViewLimit%'
+    App\Check\UserWaitedEnoughCheck:
+        arguments:
+            - '@App\Repository\UserRepository'
+            - '%daysBeforeLimitDrops%'            
+    
     # command handlers
     App\Command\Handler\RegisterUserCommandHandler:
         public: true
+        
+    App\Command\Handler\ViewCourseCommandHandler:
+        public: true
+        arguments:
+            - '@App\Check\UserIsAdminCheck'
+            - '@App\Check\UserExeededCoursesViewCheck'
+            - '@App\Check\UserWaitedEnoughCheck'
         
     # fixtures        
     App\DataFixtures\ORM\:
