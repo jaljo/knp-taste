@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Course;
+use App\Command\ViewCourseCommand;
 
 class CourseController extends Controller
 {
@@ -26,5 +27,24 @@ class CourseController extends Controller
         }
         
         return $this->render("course/index.html.twig", ["courses" => $courses]);
+    }
+    
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function view(Request $request): Response
+    {
+        try{
+            $viewCourse = new ViewCourseCommand(
+                $this->getUser()->getId(),
+                $request->get("course_id")
+            );
+        }
+        catch(Exception $exception) {
+            $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
+        }
+        
+        return $this->render("course/index.html.twig", ["course" => $course]);        
     }
 }
