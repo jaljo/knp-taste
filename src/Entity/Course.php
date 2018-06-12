@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CourseRepository")
@@ -26,6 +27,12 @@ class Course
      */
     private $videoSrc;
 
+    /**
+     * @var UserCourse 
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCourse", mappedBy="course")
+     */   
+    private $usersVisualizations;
+    
     /**
      * @param string $name
      * @param string $videoSrc
@@ -58,5 +65,13 @@ class Course
     public function getVideo(): string
     {
         return $this->videoSrc;
+    }
+    
+    /**
+     * @return PersistentCollection
+     */
+    public function getUsersVisualizations(): PersistentCollection
+    {
+        return $this->usersVisualizations;
     }
 }

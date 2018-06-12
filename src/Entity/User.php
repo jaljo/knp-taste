@@ -36,6 +36,12 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var UserCourse 
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCourse", mappedBy="user")
+     */        
+    private $viewedCourses;
+    
+    /**
      * @param string $email
      * @param string $username
      * @param string $password
@@ -122,4 +128,12 @@ class User implements UserInterface
         $this->password = $encodedPassword;
         return $this;
     }
+    
+    /**
+     * @return PersistentCollection
+     */
+    public function getViewedCourses(): PersistentCollection
+    {
+        return $this->viewedCourses;
+    }    
 }
