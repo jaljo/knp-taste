@@ -31,4 +31,20 @@ class UserRepository extends ServiceEntityRepository
         $em->persist($user);
         $em->flush();
     }
+    
+    /**
+     * @param int $userId
+     * @return int
+     */
+    public function countUserViewedCourses(int $userId): int
+    {
+        $nUserCourses = $this->createQueryBuilder("COUNT(u)")
+                ->join("u.viewedCourses")
+                ->where("u.id = :user_id")
+                ->setParameter("user_id", $userId)
+                ->getQuery()
+                ->getSingleScalarResult();
+        
+        return $nUserCourses;
+    }
 }
