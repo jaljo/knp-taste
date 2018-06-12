@@ -1,5 +1,8 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ form(userform) }}
+    {{ form_start(userform) }}
+        {{ form_widget(userform) }}
+        <button type="submit" id="user_submit">Submit</button>
+    {{ form_end(userform) }}
 {% endblock body %}

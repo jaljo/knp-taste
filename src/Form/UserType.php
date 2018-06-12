@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserType extends AbstractType
 {
@@ -19,7 +18,6 @@ class UserType extends AbstractType
     {
         $builder->add("username", TextType::class)
             ->add("password", PasswordType::class)
-            ->add("email", EmailType::class)
-            ->add("submit", SubmitType::class);                
+            ->add("email", EmailType::class);
     }
 }
