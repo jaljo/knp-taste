@@ -43,23 +43,25 @@ class User implements UserInterface
      * @param string $email
      * @param string $username
      * @param string $password
+     * @parma array $roles
      */
-    private function __construct(string $email, string $username, string $password)
+    public function __construct(string $email, string $username, string $password, array $roles)
     {
         $this->email = $email;
         $this->username = $username;
         $this->password = $password;
-        $this->roles = ["ROLE_USER"];
+        $this->roles = $roles;
     }
     
     /**
      * @param string $email
      * @param string $username
      * @param string $password
+     * @parma array $roles
      */    
-    public static function register(string $email, string $username, string $password)
+    public static function register(string $email, string $username, string $password, array $roles)
     {
-        return new self($email, $username, $password);
+        return new self($email, $username, $password, $roles);
     }
     
     /**
@@ -101,7 +103,7 @@ class User implements UserInterface
     {
         return $this->roles;
     }
-
+    
     /**
      * This mthods returns null as we use the bcrypt encoder, we don't need salt.
      * 

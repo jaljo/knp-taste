@@ -3,8 +3,6 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
-use Symfony\Component\Dotenv\Dotenv;
-use App\Kernel;
 
 /**
  * Defines application features from the specific context.
@@ -20,15 +18,6 @@ class RegisterContext implements Context
      * @var Behat\MinkExtension\Context\MinkContext
      */    
     private $minkContext;
-    
-    public function __construct()
-    {        
-        $env = new Dotenv();
-        $env->load(__DIR__.'/../../.env');
-        
-        $this->kernel = new Kernel("dev", true);
-        $this->kernel->boot();
-    }
     
     /** 
      * @BeforeScenario
@@ -81,16 +70,4 @@ class RegisterContext implements Context
     {
         $this->minkContext->assertElementContainsText(".flashbag-message", "Successful registration !");
     }
-    
-     /**
-      * @AfterScenario
-      */
-     public function cleanDB(AfterScenarioScope $scope)
-     {
-         $container = $this->kernel->getContainer();
-         $connection = $container->get("doctrine")->getManager()->getConnection();
-         
-//          $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
-//          $deleteStatement->execute();
-     }    
 }

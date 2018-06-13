@@ -37,7 +37,7 @@ class RegisterUserCommandHandler implements CommandHandler
      */
     public function handle(Command $command)
     {
-        $user = User::register($command->email, $command->username, $command->password);
+        $user = User::register($command->email, $command->username, $command->password, ["ROLE_USER"]);
 
         $password = $this->encoder->encodePassword($user, $command->password);
         $user->setPassword($password);

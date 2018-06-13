@@ -1,5 +1,31 @@
-App\Entity\Course:
-    course{1..10}:
-        __construct: 
-            - '<catchPhrase()>'
-            - '<url()>'
+#App\Entity\Course:
+#    course{1..10}:
+#        __construct: 
+#            - '<catchPhrase()>'
+#            - '<url()>'
+
+App\Entity\User:
+    user0:
+        __construct:
+            - 'admin@knplabs.com'
+            - 'admin'
+            - \$2y\$13\$Jmekxp0bjcUH2tdK0P1OD.xf/aZz.pQ0nfJHzERGFRb8NqnorCwAa
+            - ["ROLE_ADMIN"]
+    user1:
+        __construct:
+            - 'user1@knplabs.com'
+            - 'user1'
+            - \$2y\$13\$Gfkt7skY2LtWG7b2MgnaTeXN33iIIiPJSYF9VvKKmayP5k8HOQuVy
+            - ["ROLE_USER"]            
+    user2:
+        __construct:
+            - 'user2@knplabs.com'
+            - 'user2'
+            - \$2y\$13\$Gfkt7skY2LtWG7b2MgnaTeXN33iIIiPJSYF9VvKKmayP5k8HOQuVy
+            - ["ROLE_USER"]                        
+    user3:
+        __construct:
+            - 'user3@knplabs.com'
+            - 'user3'
+            - \$2y\$13\$Gfkt7skY2LtWG7b2MgnaTeXN33iIIiPJSYF9VvKKmayP5k8HOQuVy
+            - ["ROLE_USER"]                        
