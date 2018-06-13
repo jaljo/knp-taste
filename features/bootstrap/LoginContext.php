@@ -36,8 +36,8 @@ class LoginContext implements Context
      */
     public function iFillTheLoginForm()
     {
-        $this->minkContext->fillField("_email", "foo.bar@knplabs.com");
-        $this->minkContext->fillField("_password", "bar");
+        $this->minkContext->fillField("_email", "user.login@knplabs.com");
+        $this->minkContext->fillField("_password", "user1");
     }
 
     /**

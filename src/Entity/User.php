@@ -30,6 +30,11 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var array
+     */
+    private $roles;
+    
+    /**
      * @var UserCourse 
      */        
     private $viewedCourses;
@@ -44,6 +49,7 @@ class User implements UserInterface
         $this->email = $email;
         $this->username = $username;
         $this->password = $password;
+        $this->roles = ["ROLE_USER"];
     }
     
     /**
@@ -93,7 +99,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return array("ROLE_USER");
+        return $this->roles;
     }
 
     /**

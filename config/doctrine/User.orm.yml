@@ -17,6 +17,8 @@ App\Entity\User:
         password:
             type: string
             length: 100            
+        roles:
+            type: array
     oneToMany:
       viewedCourses:
         targetEntity: App\Entity\UserCourse
