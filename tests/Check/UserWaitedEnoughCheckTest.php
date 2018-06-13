@@ -40,7 +40,7 @@ class UserWaitedEnoughCheckTest extends TestCase
         $oldDate = new DateTime();
         $oldDate->sub(new DateInterval("P1Y"));
 
-        $this->userRepository->method('getUserLastCourseVisualizationDate')
+        $this->userRepository->method("getUserLastCourseVisualizationDate")
             ->willReturn($oldDate);
 
         $check = new UserWaitedEnoughCheck($this->userRepository, 1);
@@ -54,7 +54,7 @@ class UserWaitedEnoughCheckTest extends TestCase
      */
     public function testCheckFailure()
     {
-        $this->userRepository->method('getUserLastCourseVisualizationDate')
+        $this->userRepository->method("getUserLastCourseVisualizationDate")
             ->willReturn(new DateTime());
 
         $check = new UserWaitedEnoughCheck($this->userRepository, 1);

@@ -19,7 +19,7 @@ class UserExeededCoursesViewCheckTest extends TestCase
     public function setUp()
     {
         $this->user = $this->createMock(User::class);
-        $this->user->method('getViewedCourses')
+        $this->user->method("getViewedCourses")
              ->willReturn([1, 2, 3]);
     }
 
