@@ -24,22 +24,22 @@ class UserExeededCoursesViewCheckTest extends TestCase
     }
 
     /**
-     * Ensure check return false when user's course don't exeed given parmeter value
-     */
-    public function testCheckSuccess()
-    {
-        $check = new UserExeededCoursesViewCheck(10);
-
-        $this->assertFalse($check->check($this->user));
-    }
-
-    /**
      * Ensure check return true when user's course exeed given parmeter value
      */
-    public function testCheckFailure()
+    public function testCheckSuccess()
     {
         $check = new UserExeededCoursesViewCheck(1);
 
         $this->assertTrue($check->check($this->user));
+    }
+
+    /**
+     * Ensure check return false when user's course don't exeed given parmeter value
+     */
+    public function testCheckFailure()
+    {
+        $check = new UserExeededCoursesViewCheck(10);
+
+        $this->assertFalse($check->check($this->user));
     }
 }
