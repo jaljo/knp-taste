@@ -9,16 +9,11 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 class RegisterContext implements Context
 {    
     /**
-     * @var App\Kernel
-     */
-    private $kernel;
-    
-    /**
      * @var Behat\MinkExtension\Context\MinkContext
-     */    
+     */
     private $minkContext;
-    
-    /** 
+
+    /**
      * @BeforeScenario
      */
     public function gatherContexts(BeforeScenarioScope $scope)
@@ -27,7 +22,7 @@ class RegisterContext implements Context
 
         $this->minkContext = $environment->getContext('Behat\MinkExtension\Context\MinkContext');
     }
-    
+
     /**
      * @Given I am on the registeration page
      */
