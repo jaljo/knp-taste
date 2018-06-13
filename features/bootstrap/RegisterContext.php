@@ -90,7 +90,7 @@ class RegisterContext implements Context
          $container = $this->kernel->getContainer();
          $connection = $container->get("doctrine")->getManager()->getConnection();
          
-          $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
-          $deleteStatement->execute();
+//          $deleteStatement = $connection->prepare('DELETE FROM user WHERE email = "foo.bar@knplabs.com";');
+//          $deleteStatement->execute();
      }    
 }

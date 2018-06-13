@@ -5,7 +5,7 @@
     <h2>{{ course.name }}</h2>
     {% if displayVideo %}
         <h3>Video url: {{ course.videoSrc }}</h3>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/gZNm7L96pfY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>       
+        <iframe id="youtube-video" width="560" height="315" src="https://www.youtube.com/embed/gZNm7L96pfY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>       
     {% endif %}
     </ul>
 {% endblock body %}

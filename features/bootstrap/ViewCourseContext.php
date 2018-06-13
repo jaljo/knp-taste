@@ -25,11 +25,16 @@ class ViewCourseContext implements Context
     }    
     
     /**
-     * @Given I am logged as an admin
+     * @Given I am logged as and admin :arg1 :arg2
      */
-    public function iAmLoggedAsAnAdmin()
+    public function iAmLoggedAsAndAdmin($arg1, $arg2)
     {
-        throw new PendingException();
+        $this->minkContext->visit("/login");
+        
+        $this->minkContext->fillField("_email", $arg1);
+        $this->minkContext->fillField("_password", $arg2);
+
+        $this->minkContext->pressButton("_login");        
     }
 
     /**
@@ -37,7 +42,8 @@ class ViewCourseContext implements Context
      */
     public function iClickOnACourseName()
     {
-        throw new PendingException();
+        $this->minkContext->visit("/course/1");
+        $this->minkContext->assertPageAddress("/course/1");
     }
 
     /**
@@ -45,13 +51,13 @@ class ViewCourseContext implements Context
      */
     public function iShouldAccessTheCourseDetails()
     {
-        throw new PendingException();
+        $this->minkContext->assertElementOnPage("#youtube-video");
     }
 
     /**
-     * @Given I am logged as a user
+     * @Given I am logged as a user :arg1 :arg2
      */
-    public function iAmLoggedAsAUser()
+    public function iAmLoggedAsAUser($arg1, $arg2)
     {
         throw new PendingException();
     }
@@ -94,5 +100,5 @@ class ViewCourseContext implements Context
     public function iRecieveAnErrorMessage()
     {
         throw new PendingException();
-    }    
+    }
 }
