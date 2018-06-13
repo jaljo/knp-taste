@@ -29,7 +29,6 @@ services:
     # checks
     App\Check\UserExeededCoursesViewCheck:
         arguments:
-            - '@App\Repository\UserRepository'
             - '%coursesViewLimit%'
     App\Check\UserWaitedEnoughCheck:
         arguments:
@@ -43,11 +42,9 @@ services:
     App\Command\Handler\ViewCourseCommandHandler:
         public: true
         arguments:
-            - '@App\Check\UserIsAdminCheck'
             - '@App\Check\UserExeededCoursesViewCheck'
             - '@App\Check\UserWaitedEnoughCheck'
             - '@App\Repository\UserRepository'
-            - '@App\Repository\CourseRepository'
         
     # fixtures        
     App\DataFixtures\ORM\:

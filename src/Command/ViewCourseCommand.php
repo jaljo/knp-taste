@@ -3,26 +3,28 @@
 namespace App\Command;
 
 use App\Command\Command;
+use App\Entity\User;
+use App\Entity\Course;
 
 class ViewCourseCommand implements Command
 {
     /**
-     * @var int 
+     * @var User 
      */
-    public $userId;
+    public $user;
     
     /**
-     * @var int 
+     * @var Course 
      */    
-    public $courseId;
+    public $course;
     
     /**
-     * @param $userId int
-     * @param $courseId int
+     * @param User int
+     * @param Course int
      */    
-    public function __construct(int $userId, int $courseId)
+    public function __construct(User $user, Course $course)
     {
-        $this->userId = $userId;
-        $this->courseId = $courseId;
+        $this->user = $user;
+        $this->course = $course;
     }
 }

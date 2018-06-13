@@ -105,6 +105,16 @@ class User implements UserInterface
     }
     
     /**
+     * This methods checks if the user is an admin.
+     * 
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return in_array("ROLE_ADMIN", $this->roles);
+    }
+    
+    /**
      * This mthods returns null as we use the bcrypt encoder, we don't need salt.
      * 
      * @return null

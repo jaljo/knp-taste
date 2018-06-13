@@ -17,7 +17,7 @@ course_index:
     controller: App\Controller\CourseController::index    
     
 course_view:
-    path: /course/{course_id}
+    path: /course/{courseId}
     controller: App\Controller\CourseController::view
     requirements:
         course_id: \d+

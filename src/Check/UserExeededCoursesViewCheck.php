@@ -3,44 +3,33 @@
 namespace App\Check;
 
 use App\Check\UserCheck;
-use App\Repository\UserRepository;
+use App\Entity\User;
 
 class UserExeededCoursesViewCheck implements UserCheck
-{
-    /**
-     * @var UserRepository 
-     */
-    private $userRepository;
-    
+{    
     /**
      * @var int 
      */    
     private $coursesViewLimit;
     
     /**
-     * @param UserRepository $userRepository
+     * @param int $coursesViewLimit
      */
-    public function __construct(UserRepository $userRepository, int $coursesViewLimit)
+    public function __construct(int $coursesViewLimit)
     {
-        $this->userRepository = $userRepository;
         $this->coursesViewLimit = $coursesViewLimit;
     }
     
     /**
      * Match user viewed courses against application parameter.
      * 
-     * @param int $userId
+     * @param User $user
      * @return bool
      */
-    public function check(int $userId): bool
-    {
-        $viewedCourses = $this->userRepository->countUserViewedCourses($userId);
-
-        if($viewedCourses < $this->coursesViewLimit) {
-            return false;
-        }
-        else {
-            return true;
-        }
+    public function check(User $user): bool
+    {    
+        $viewedCourses = count($user->getViewedCourses());
+        
+        return ($viewedCourses < $this->coursesViewLimit) ? false : true;
     }
 }

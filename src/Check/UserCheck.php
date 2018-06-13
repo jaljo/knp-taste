@@ -2,7 +2,9 @@
 
 namespace App\Check;
 
+use App\Entity\User;
+
 interface UserCheck
 {
-    public function check(int $userId): bool;
+    public function check(User $user): bool;
 }

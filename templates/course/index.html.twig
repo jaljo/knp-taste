@@ -5,7 +5,7 @@
     <ul>
     {% for course in courses %}
         <li>
-            <a href="{{ path("course_view", {course_id: course.id}) }}">{{ course.name }}</a>
+            <a href="{{ path("course_view", {courseId: course.id}) }}">{{ course.name }}</a>
         </li>
     {% endfor %}
     </ul>
