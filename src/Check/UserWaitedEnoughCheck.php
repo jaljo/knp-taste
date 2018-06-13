@@ -41,7 +41,7 @@ class UserWaitedEnoughCheck implements UserCheck
         $limitInterval = new DateInterval("P" . $this->daysBeforeLimitDrops . "D");
 
         // compute date at which limit expires
-        $lastCourseDate = $this->userRepository->getUserLastCourseVisualizationDate($user->getId());
+        $lastCourseDate = $this->userRepository->getUserLastCourseVisualizationDate($user);
         $courseLimitExpires = $lastCourseDate->add($limitInterval);
 
         // match this date with current timestamp

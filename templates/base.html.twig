@@ -16,7 +16,12 @@
                 <div class="flashbag-error">
                     {{ flashError }}
                 </div>
-            {% endfor %}            
+            {% endfor %}     
+            
+            {% if app.user %}
+                <a href="{{ path("course_index") }}">Available courses</a>
+                <a href="{{ path("logout") }}">Logout</a>
+            {% endif %}
         </header>
         
         {% block body %}{% endblock %}

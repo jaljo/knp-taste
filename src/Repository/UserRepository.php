@@ -37,10 +37,10 @@ class UserRepository extends ServiceEntityRepository
     /**
      * @todo I used DBAL for convenience, but there should be a way to do this using DQL.
      *
-     * @param int $userId
+     * @param User $user
      * @return DateTimeInterface
      */
-    public function getUserLastCourseVisualizationDate(int $userId): DateTimeInterface
+    public function getUserLastCourseVisualizationDate(User $user): DateTimeInterface
     {
         $query = "SELECT uc.view_date "
                 . "FROM user_course uc "
@@ -52,7 +52,7 @@ class UserRepository extends ServiceEntityRepository
 
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($query);
-        $stmt->bindValue("user_id", $userId);
+        $stmt->bindValue("user_id", $user->getId());
         $stmt->execute();
 
         // convert string to datetime
