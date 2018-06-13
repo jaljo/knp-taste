@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\UserType;
+use App\Form\LoginType;
 use App\Command\RegisterUserCommand;
 use App\Command\Handler\RegisterUserCommandHandler;
 use Exception;
@@ -23,13 +24,16 @@ class SecurityController extends Controller
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        // last username entered by the user
+        // last email entered by the user
         $lastEmail = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', array(
-            'last_email' => $lastEmail,
-            'error' => $error,
-        ));
+        $loginForm = $this->createForm(LoginType::class);
+        $loginForm->get("_email")->setData($lastEmail);
+
+        return $this->render("security/login.html.twig", [
+            "error" => $error,
+            "loginForm" => $loginForm->createView()
+        ]);
     }
 
     /**

@@ -4,14 +4,9 @@
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="email" name="_email" value="{{ last_email }}" />
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" />
-        <a href="{{ path("user_register") }}">Register</a>
+       
+    {{ form_start(loginForm, {"action": path("login"), "method": "POST"}) }}
+        {{ form_widget(loginForm) }}
         <button type="submit" name="_login">login</button>
-    </form>
+    {{ form_end(loginForm) }}
 {% endblock body %}
