@@ -34,8 +34,7 @@ class ViewCourseCommandHandler implements CommandHandler
         UserCheck $userExeededCoursesViewCheck,
         UserCheck $userWaitedEnough,
         UserRepository $userRepository
-    )
-    {
+    ) {
         $this->userExeededCoursesViewCheck = $userExeededCoursesViewCheck;
         $this->userWaitedEnough = $userWaitedEnough;
         $this->userRepository = $userRepository;
