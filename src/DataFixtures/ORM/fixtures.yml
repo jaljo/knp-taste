@@ -1,9 +1,11 @@
-#App\Entity\Course:
-#    course{1..10}:
-#        __construct: 
-#            - '<catchPhrase()>'
-#            - '<url()>'
+# courses
+App\Entity\Course:
+    course{0..10}:
+        __construct: 
+            - '<catchPhrase()>'
+            - '<url()>'
 
+# users
 App\Entity\User:
     user0:
         __construct:
@@ -22,10 +24,22 @@ App\Entity\User:
             - 'user2@knplabs.com'
             - 'user2'
             - \$2y\$13\$Gfkt7skY2LtWG7b2MgnaTeXN33iIIiPJSYF9VvKKmayP5k8HOQuVy
-            - ["ROLE_USER"]                        
-    user3:
+            - ["ROLE_USER"]                                        
+            
+# user course            
+App\Entity\UserCourse:
+    # admin user has unlimited access to courses: should pass
+    usercourse{1..20}:
         __construct:
-            - 'user3@knplabs.com'
-            - 'user3'
-            - \$2y\$13\$Gfkt7skY2LtWG7b2MgnaTeXN33iIIiPJSYF9VvKKmayP5k8HOQuVy
-            - ["ROLE_USER"]                        
+            - '@course0'
+            - '@user0'
+    # standard user have < 10 course limit: should pass
+    usercourse0:
+        __construct:
+            - '@course1'
+            - '@user1'            
+     # standard user have < 10 course limit: should not pass
+    usercourse{21..30}:
+        __construct:
+            - '@course2'
+            - '@user2'              
