@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Course;
 use App\Entity\UserCourse;
 
@@ -35,7 +35,7 @@ class User implements UserInterface
     private $roles;
     
     /**
-     * @var UserCourse 
+     * @var UserCourse[]
      */        
     private $viewedCourses;
     
@@ -51,6 +51,7 @@ class User implements UserInterface
         $this->username = $username;
         $this->password = $password;
         $this->roles = $roles;
+        $this->viewedCourses = new ArrayCollection();
     }
     
     /**
@@ -140,10 +141,7 @@ class User implements UserInterface
         return $this;
     }
     
-    /**
-     * @return PersistentCollection
-     */
-    public function getViewedCourses(): PersistentCollection
+    public function getViewedCourses()
     {
         return $this->viewedCourses;
     }    

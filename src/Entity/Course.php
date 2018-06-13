@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\PersistentCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Course
 {
@@ -34,6 +34,7 @@ class Course
     {
         $this->name = $name;
         $this->videoSrc = $videoSrc;
+        $this->usersVisualizations = new ArrayCollection();
     }
     
     /**
@@ -60,10 +61,7 @@ class Course
         return $this->videoSrc;
     }
     
-    /**
-     * @return PersistentCollection
-     */
-    public function getUsersVisualizations(): PersistentCollection
+    public function getUsersVisualizations()
     {
         return $this->usersVisualizations;
     }
