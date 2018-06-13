@@ -14,7 +14,14 @@ use App\Command\Handler\ViewCourseCommandHandler;
 
 class ViewCourseCommandHandlerTest extends TestCase
 {
+    /**
+     * @var User
+     */
     private $user;
+
+    /**
+     * @var ViewCourseCommand
+     */
     private $command;
 
    /**
@@ -22,8 +29,14 @@ class ViewCourseCommandHandlerTest extends TestCase
      */
     private $userRepository;
 
+    /**
+     * @var UserExeededCoursesViewCheck
+     */
     private $userExeededCoursesViewCheck;
 
+    /**
+     * @var UserWaitedEnoughCheck
+     */
     private $userWaitedEnoughCheck;
 
     /**
@@ -58,24 +71,60 @@ class ViewCourseCommandHandlerTest extends TestCase
     }
 
     /**
-     * Ensure that an admin user successfully take course.
+     * Ensure that an admin user successfully took course.
      */
     public function testHandleAdminSuccess()
     {
         $this->user->method("isAdmin")->willReturn(true);
+
         $this->user->expects($this->once())->method("takeCourse");
         $this->userRepository->expects($this->once())->method("save");
 
         $this->handler->handle($this->command);
     }
 
-//    public function testHandleUserSuccess()
-//    {
-//        $this->user->method("isAdmin")->willReturn(false);
-//    }
-//
-//    public function testHandleUserFailure()
-//    {
-//        $this->user->method("isAdmin")->willReturn(false);
-//    }
+    /**
+     * Ensure that a non admin user which don't exeeded view limitation sucessfully took the course.
+     */
+    public function testHandleUserNoLimitationSuccess()
+    {
+        $this->user->method("isAdmin")->willReturn(false);
+        $this->userExeededCoursesViewCheck->method("check")->willReturn(false);
+
+        $this->user->expects($this->once())->method("takeCourse");
+        $this->userRepository->expects($this->once())->method("save");
+
+        $this->handler->handle($this->command);
+    }
+
+    /**
+     * Ensure that a non admin user which exeeded view limitation
+     * BUT waited enough time sucessfully took the course.
+     */
+    public function testHandleUserWaitedEnoughSuccess()
+    {
+        $this->user->method("isAdmin")->willReturn(false);
+        $this->userExeededCoursesViewCheck->method("check")->willReturn(true);
+        $this->userWaitedEnoughCheck->method("check")->willReturn(true);
+
+        $this->user->expects($this->once())->method("takeCourse");
+        $this->userRepository->expects($this->once())->method("save");
+
+        $this->handler->handle($this->command);
+    }
+
+    /**
+     * Ensure that a non admin user which exeeded view limitation
+     * AND didn't wait enough time can't take the course.
+     */
+    public function testHandleUserFailure()
+    {
+        $this->user->method("isAdmin")->willReturn(false);
+        $this->userExeededCoursesViewCheck->method("check")->willReturn(true);
+        $this->userWaitedEnoughCheck->method("check")->willReturn(false);
+
+        $this->expectException(Exception::class);
+
+        $this->handler->handle($this->command);
+    }
 }
