@@ -35,22 +35,6 @@ class UserRepository extends ServiceEntityRepository
     }
     
     /**
-     * @param int $userId
-     * @return int
-     */
-    public function countUserViewedCourses(int $userId): int
-    {
-        $userWithCourses = $this->createQueryBuilder("u")
-                ->join("u.viewedCourses", "vc")
-                ->where("u.id = :user_id")
-                ->setParameter("user_id", $userId)
-                ->getQuery()
-                ->getSingleResult();
-        
-        return count($userWithCourses->getViewedCourses());
-    }
-    
-    /**
      * @todo I used DBAL for convenience, but there should be a way to do this using DQL.
      * 
      * @param int $userId

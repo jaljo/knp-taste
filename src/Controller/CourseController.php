@@ -18,11 +18,10 @@ class CourseController extends Controller
      */
     public function index(Request $request): Response
     {        
-        try{
+        try {
             $courses = $this->getDoctrine()->getManager()->getRepository(Course::class)
                 ->findAll();            
-        }
-        catch(Exception $exception) {
+        } catch (Exception $exception) {
             $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
         }
         
@@ -36,7 +35,7 @@ class CourseController extends Controller
      */
     public function view(Request $request, int $courseId): Response
     {
-        try{
+        try {
             // in all case, we have to get the course details
             $course = $this->getDoctrine()->getManager()->getRepository(Course::class)
                 ->find($courseId);      
@@ -49,8 +48,7 @@ class CourseController extends Controller
                 "course" => $course,
                 "displayVideo" => true
             ]);    
-        }
-        catch(Exception $exception) {
+        } catch (Exception $exception) {
             $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
         }
         

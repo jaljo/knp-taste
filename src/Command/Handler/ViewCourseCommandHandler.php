@@ -51,12 +51,12 @@ class ViewCourseCommandHandler implements CommandHandler
     public function handle(Command $command)
     {        
         // we don't throw role exception here because the symfony security layer will handle them
-        if($command->user->isAdmin()) {
+        if ($command->user->isAdmin()) {
             return;
         }
         
         // for non admin user, we ensure business rules are respected
-        if(
+        if (
             $this->userExeededCoursesViewCheck->check($command->user) &&
             !$this->userWaitedEnough->check($command->user)
         ) {            

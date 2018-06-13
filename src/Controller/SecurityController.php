@@ -43,8 +43,8 @@ class SecurityController extends Controller
         $userForm->handleRequest($request);
                 
         // handle user form registration data
-        if($userForm->isSubmitted() && $userForm->isValid()) {
-            try{
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            try {
                     $userData = $userForm->getData();                
 
                     // form data processing is delegated to a handler using the command pattern
@@ -54,8 +54,7 @@ class SecurityController extends Controller
                     $this->get(RegisterUserCommandHandler::class)->handle($registerUser);   
 
                     $request->getSession()->getFlashBag() ->add("message", "Successful registration !");
-            }
-            catch(Exception $exception) {
+            } catch (Exception $exception) {
                 $request->getSession()->getFlashBag() ->add("error", $exception->getMessage());
             }
             

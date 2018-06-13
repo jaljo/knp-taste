@@ -39,10 +39,10 @@ class FixtureLoader extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $loader = new NativeLoader();
-        $courseSet = $loader->loadFile(__DIR__.'/fixtures.yml');        
+        $fixtureSet = $loader->loadFile(__DIR__.'/fixtures.yml');        
         
-        foreach($courseSet->getObjects() as $course) {
-            $this->entityManager->persist($course);
+        foreach ($fixtureSet->getObjects() as $fixture) {
+            $this->entityManager->persist($fixture);
         }
         
         $this->entityManager->flush();
