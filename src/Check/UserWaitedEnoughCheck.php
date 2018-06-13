@@ -11,15 +11,15 @@ use App\Entity\User;
 class UserWaitedEnoughCheck implements UserCheck
 {
     /**
-     * @var UserRepository 
+     * @var UserRepository
      */
     private $userRepository;
-    
+
     /**
-     * @var int 
-     */    
+     * @var int
+     */
     private $daysBeforeLimitDrops;
-    
+
     /**
      * @param UserRepository $userRepository
      */
@@ -28,10 +28,10 @@ class UserWaitedEnoughCheck implements UserCheck
         $this->userRepository = $userRepository;
         $this->daysBeforeLimitDrops = $daysBeforeLimitDrops;
     }
-    
+
     /**
      * Match user last viewed course date against application parameter.
-     * 
+     *
      * @param User $user
      * @return bool
      */
@@ -39,9 +39,9 @@ class UserWaitedEnoughCheck implements UserCheck
     {
         // compute interval based on given parameter
         $limitInterval = new DateInterval("P" . $this->daysBeforeLimitDrops . "D");
-        
+
         // compute date at which limit expires
-        $lastCourseDate = $this->userRepository->getUserLastCourseVisualizationDate($user->getId());    
+        $lastCourseDate = $this->userRepository->getUserLastCourseVisualizationDate($user->getId());
         $courseLimitExpires = $lastCourseDate->add($limitInterval);
 
         // match this date with current timestamp

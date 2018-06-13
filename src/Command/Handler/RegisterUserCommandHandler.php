@@ -14,12 +14,12 @@ class RegisterUserCommandHandler implements CommandHandler
      * @var UserPasswordEncoderInterface
      */
     private $encoder;
-    
+
     /**
-     * @var IUserRepository 
+     * @var IUserRepository
      */
     private $userRepository;
-    
+
     /**
      * @param UserPasswordEncoderInterface $encoder
      * @param UserRepository $userRepository
@@ -29,10 +29,10 @@ class RegisterUserCommandHandler implements CommandHandler
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
     }
-    
+
     /**
      * Encode password then persist user to database.
-     * 
+     *
      * @param Command $command
      */
     public function handle(Command $command)
@@ -41,7 +41,7 @@ class RegisterUserCommandHandler implements CommandHandler
 
         $password = $this->encoder->encodePassword($user, $command->password);
         $user->setPassword($password);
-        
+
         $this->userRepository->save($user);
     }
 }

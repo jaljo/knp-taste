@@ -15,30 +15,30 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @var string 
+     * @var string
      */
     private $email;
-    
+
     /**
-     * @var string 
+     * @var string
      */
     private $username;
-    
+
     /**
-     * @var string 
-     */    
+     * @var string
+     */
     private $password;
 
     /**
      * @var array
      */
     private $roles;
-    
+
     /**
      * @var UserCourse[]
-     */        
+     */
     private $viewedCourses;
-    
+
     /**
      * @param string $email
      * @param string $username
@@ -53,18 +53,18 @@ class User implements UserInterface
         $this->roles = $roles;
         $this->viewedCourses = new ArrayCollection();
     }
-    
+
     /**
      * @param string $email
      * @param string $username
      * @param string $password
      * @parma array $roles
-     */    
+     */
     public static function register(string $email, string $username, string $password, array $roles)
     {
         return new self($email, $username, $password, $roles);
     }
-    
+
     /**
      * @return int
      */
@@ -75,20 +75,20 @@ class User implements UserInterface
 
     /**
      * @return string
-     */    
-    public function getEmail(): string 
+     */
+    public function getEmail(): string
     {
         return $this->email;
     }
-    
+
     /**
      * @return string
-     */    
-    public function getUsername(): string 
+     */
+    public function getUsername(): string
     {
         return $this->username;
     }
-    
+
     /**
      * @return string
      */
@@ -104,34 +104,34 @@ class User implements UserInterface
     {
         return $this->roles;
     }
-    
+
     /**
      * This methods checks if the user is an admin.
-     * 
+     *
      * @return bool
      */
     public function isAdmin(): bool
     {
         return in_array("ROLE_ADMIN", $this->roles);
     }
-    
+
     /**
      * This mthods returns null as we use the bcrypt encoder, we don't need salt.
-     * 
+     *
      * @return null
      */
     public function getSalt()
     {
         return null;
     }
-    
-    public function eraseCredentials(): void 
+
+    public function eraseCredentials(): void
     {
-    }    
-    
+    }
+
     /**
      * This method overrides plaintext password with encoded one.
-     * 
+     *
      * @param string $encodedPassword
      * @return \App\Entity\User
      */
@@ -140,15 +140,15 @@ class User implements UserInterface
         $this->password = $encodedPassword;
         return $this;
     }
-    
+
     public function getViewedCourses()
     {
         return $this->viewedCourses;
-    }    
-    
+    }
+
     /**
      * @todo to tight coupled to UserCourse ?
-     * 
+     *
      * @param Course $course
      * @return \App\Entity\User
      */
@@ -156,7 +156,7 @@ class User implements UserInterface
     {
         $userCourse = UserCourse::take($course, $this);
         $this->viewedCourses->add($userCourse);
-        
+
         return $this;
     }
 }

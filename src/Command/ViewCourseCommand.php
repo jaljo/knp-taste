@@ -9,19 +9,19 @@ use App\Entity\Course;
 class ViewCourseCommand implements Command
 {
     /**
-     * @var User 
+     * @var User
      */
     public $user;
-    
+
     /**
-     * @var Course 
-     */    
+     * @var Course
+     */
     public $course;
-    
+
     /**
      * @param User int
      * @param Course int
-     */    
+     */
     public function __construct(User $user, Course $course)
     {
         $this->user = $user;

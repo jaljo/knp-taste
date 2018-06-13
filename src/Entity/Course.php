@@ -22,10 +22,10 @@ class Course
     private $videoSrc;
 
     /**
-     * @var UserCourse 
-     */   
+     * @var UserCourse
+     */
     private $usersVisualizations;
-    
+
     /**
      * @param string $name
      * @param string $videoSrc
@@ -36,7 +36,7 @@ class Course
         $this->videoSrc = $videoSrc;
         $this->usersVisualizations = new ArrayCollection();
     }
-    
+
     /**
      * @return int
      */
@@ -60,7 +60,7 @@ class Course
     {
         return $this->videoSrc;
     }
-    
+
     public function getUsersVisualizations()
     {
         return $this->usersVisualizations;

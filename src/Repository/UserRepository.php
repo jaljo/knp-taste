@@ -33,10 +33,10 @@ class UserRepository extends ServiceEntityRepository
         $em->persist($user);
         $em->flush();
     }
-    
+
     /**
      * @todo I used DBAL for convenience, but there should be a way to do this using DQL.
-     * 
+     *
      * @param int $userId
      * @return DateTimeInterface
      */
@@ -49,16 +49,16 @@ class UserRepository extends ServiceEntityRepository
                 . "WHERE u.id = :user_id "
                 . "ORDER BY uc.view_date DESC "
                 . "LIMIT 1;";
-                
+
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($query);
         $stmt->bindValue("user_id", $userId);
         $stmt->execute();
-        
+
         // convert string to datetime
         $lastViewDateString = $stmt->fetch();
         $lastViewDate = new DateTime($lastViewDateString["view_date"]);
-        
+
         return $lastViewDate;
     }
 }

@@ -7,20 +7,20 @@ use App\Command\Command;
 class RegisterUserCommand implements Command
 {
     /**
-     * @var string 
+     * @var string
      */
     public $username;
-    
+
     /**
-     * @var string 
-     */    
+     * @var string
+     */
     public $password;
-    
+
     /**
-     * @var string 
-     */    
+     * @var string
+     */
     public $email;
-    
+
     /**
      * @param string $email
      * @param string $username

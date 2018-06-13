@@ -24,25 +24,25 @@ class UserCourse
 
     /**
      * @var Course
-     */    
+     */
     private $course;
-    
+
     /**
      * @var User
-     */    
+     */
     private $user;
-    
+
     /**
      * @param Course $course
      * @param User $user
-     */    
+     */
     public function __construct(Course $course, User $user)
     {
         $this->course = $course;
         $this->user = $user;
         $this->viewDate = new DateTime();
     }
-    
+
     /**
      * @param Course $course
      * @param User $user
@@ -51,7 +51,7 @@ class UserCourse
     {
         return new self($course, $user);
     }
-    
+
     /**
      * @return int
      */
@@ -59,7 +59,7 @@ class UserCourse
     {
         return $this->id;
     }
-    
+
     /**
      * @return DateTimeInterface
      */
@@ -67,18 +67,18 @@ class UserCourse
     {
         return $this->viewDate;
     }
-    
+
     /**
      * @return Course
-     */    
+     */
     public function getCourse(): Course
     {
         return $this->course;
     }
-    
+
     /**
      * @return User
-     */    
+     */
     public function getUser(): User
     {
         return $this->user;
